@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center font-weight-bold">
+    <h1 class="display-5 mt-5 mb-5 font-italic">Welcome</h1>
+    <p>You can start using this appointment scheduler after you log in. </p>
+</div>
+
+<script>
+    window.onload = function () {
+        if (!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+        }
+    }
+</script>

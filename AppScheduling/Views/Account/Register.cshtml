@@ -1,0 +1,87 @@
+﻿@model AppScheduling.Models.ViewModels.RegisterViewModel
+
+@{
+    var admin = User.IsInRole("Admin");
+    var roleItems = AppScheduling.Helper.Helper.GetRolesForDropDown(admin);
+
+}
+
+<div class="text-center py-3">
+   @if (admin)
+   { <h2>Create new admin account</h2>}
+   else
+   {
+       <h2>Create a new account</h2>
+   }
+   <br/>
+   <h5>Fill in the form and click submit</h5>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-7">
+        <section id="registerForm">
+        <form method="post" asp-action="Register" asp-controller="Account">
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <br />
+            <div class="form-group row">
+                <label asp-for="Name" class="col-2"></label>
+                <div class="col-10">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Email" class="col-2"></label>
+                <div class="col-10">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Password" class="col-2 pr-4 pl-0"></label>
+                <div class="col-10">
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="ConfirmPassword" class="col-2 pr-4 pl-0"></label>
+                <div class="col-10">
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+           
+            @if (!admin)
+            {
+            <div class="form-group row">
+                <label asp-for="RoleName" class="col-4"></label>
+                <div class="col-6">
+                    <select asp-for="RoleName" asp-items="@roleItems" class="form-control d-block mr-auto">
+                        <option>Select a role</option>
+                    </select>
+                    <span asp-validation-for="RoleName" class="text-danger"></span>
+                </div>
+            </div>
+            }
+
+            <div class="form-group">
+                <input type="submit" class="col-4 btn btn-primary d-block mx-auto mt-5" value="Register" />
+            </div>
+
+            <p class="col-md-10 offset-2 pt-3 ">
+                Already have an account? <a asp-action="Login">Sign In</a>
+            </p>
+
+        </form>
+    </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+       <partial name="_ValidationScriptsPartial"/>
+}

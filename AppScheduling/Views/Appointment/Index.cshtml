@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var admin = User.IsInRole("Admin");
+    var doctors = ViewBag.doctors;
+}
+@*<div class="text-center py-3 mb-4">
+        <h4>List of all the doctors: </h4>
+    </div>*@
+
+<div class="container">
+<div class="row mb-5">
+
+    @if (TempData.ContainsKey("newAdminSignUp")) { 
+        <div class="container">
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                <strong>Account created for @TempData["newAdminSignUp"].ToString()</strong>
+            </div>
+        </div>
+    }
+
+        @if (admin)
+        {
+            <div class="col-6" id="divDoctorList">
+                <label>Select Doctor</label>
+                @Html.DropDownList("doctorId", new SelectList(doctors, "Id", "Name"), new
+                {
+                    @class = "form-control select2",
+                    @onchange = "onDoctorChange();"
+                  })
+            </div>
+
+            <div class="col-6 text-right my-auto">
+             <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-sm p-0 " > Register new admin </a>
+            </div>
+
+        }
+     </div>
+    
+      <div id="calendar" class=""></div>
+</div>
+
+
+<partial name="_AddEditAppointment" />
+
+    
+@*<div class="text-right pt-2">
+    <p>@HttpContextAccessor.HttpContext.Session.GetString("ssuserName") 's account is logged in</p>
+</div>*@
+
+@*else
+    {
+    <div class="text-center py-3 mb-4">
+        <h4>You don't have permission to see this list.</h4>
+    </div>
+    }*@

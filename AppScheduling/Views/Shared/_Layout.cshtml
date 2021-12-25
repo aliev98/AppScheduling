@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Appointment Scheduler </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.2.513/styles/kendo.default-v2.min.css" />
+    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+    <style>
+        .lightg {
+            background-color: lightblue;
+        }
+
+        @@media (min-width:800px) {
+            .brandmin {
+                position: absolute;
+            }
+        }
+    </style>
+</head>
+<body class="lightg">
+    <header>
+        
+        <nav class="navbar navbar-light navbar-inverse navbar-expand-sm navbar-toggleable-sm box-shadow mb-5 rounded">
+            <div class="container-fluid">
+                <a class="navbar-brand brandmin font-weight-bold text-white " asp-area="" asp-controller="Appointment" asp-action="Index">Appointment Scheduler</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container" style="max-width:732px">
+        <main role="main" class="pb-3 ">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer border-top text-muted font-italic">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 ">
+                    <p class="m-0 ">© Company 2021 - <a asp-controller="Home" asp-action="Privacy">Privacy</a></p>
+                </div>
+
+                <div class="col-4 text-center  ">
+                  @HttpContextAccessor.HttpContext.Session.GetString("ssuserName")
+                </div>
+
+                <div class="col-4 text-right my-auto">
+                    <h6><a href="https://docs.microsoft.com/aspnet/core" class="text-dark">More about ASP.NET Core</a></h6>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib//select2/js/select2.full.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.2.513/js/kendo.all.min.js"></script>
+
+    <script type="text/javascript" src="~/js/notify.min.js"></script>
+    <script src="~/js/script-calendar.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
